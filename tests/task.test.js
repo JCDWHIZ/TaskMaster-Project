@@ -9,11 +9,8 @@ let mongoServer;
 let authToken;
 let userId;
 
-// Setup and teardown in-memory database
 beforeAll(async () => {
   connectTestDB();
-
-  // Create a user and generate a token
   const user = await User.create({
     username: "testuser",
     email: "test@example.com",
@@ -30,7 +27,7 @@ afterAll(async () => {
 });
 
 afterEach(async () => {
-  await Task.deleteMany(); // Clear tasks after each test
+  await Task.deleteMany();
 });
 
 describe("Task API", () => {
@@ -51,7 +48,7 @@ describe("Task API", () => {
       expect(response.body.task).toMatchObject({
         title: "Test Task",
         description: "This is a test task",
-        deadline: "2024-12-31T00:00:00.000Z", // ISO format
+        deadline: "2024-12-31T00:00:00.000Z",
         priority: "High",
         userId: userId.toString(),
       });

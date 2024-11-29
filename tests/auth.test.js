@@ -7,7 +7,6 @@ const { connectTestDB, disconnectTestDB } = require("./testUtils");
 
 let mongoServer;
 
-// Set up and tear down the in-memory database
 beforeAll(async () => {
   connectTestDB();
 });
@@ -17,7 +16,7 @@ afterAll(async () => {
 });
 
 afterEach(async () => {
-  await User.deleteMany(); // Clear users after each test
+  await User.deleteMany();
 });
 
 describe("Authentication API", () => {
@@ -85,8 +84,6 @@ describe("Authentication API", () => {
       expect(response.statusCode).toBe(200);
       expect(response.body.message).toBe("Login successful.");
       expect(response.body.token).toBeDefined();
-
-      // Verify JWT token
       const decoded = jwt.verify(response.body.token, process.env.JWT_SECRET);
       expect(decoded.userId).toBeDefined();
     });

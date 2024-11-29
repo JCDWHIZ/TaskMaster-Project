@@ -3,7 +3,7 @@ const Task = require("../Models/TaskModel");
 const createTask = async (req, res) => {
   try {
     const { title, description, deadline, priority } = req.body;
-    const userId = req.user.userId; // Extracted from authenticated token
+    const userId = req.user.userId;
 
     if (!title || !priority) {
       return res
